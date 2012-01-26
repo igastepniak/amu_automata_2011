@@ -219,5 +219,54 @@ public class TestDeterministicAutomaton extends TestCase {
         assertTrue(automaton9.accepts("ababbb"));
         assertEquals(4, automaton8.countStates());
     }
+	
+	/**
+	* Automat: automat deterministyczny akceptujšcy wszystkie napisy nad alfabetem {a,b,c}, których przedostatnim znakiem jest 'a' lub 'b'.
+	* Co przetestowaæ: metoda accepts klasy DeterministicAutomaton.
+	*/
+	public final void testPrzedostatniaLitera()
+	{
+		AutomatonSpecification spec = NaiveAutomatonSpecification();
+
+		State q0 = spec.addState();
+		State q1 = spec.addState();
+		State q2 = spec.addState();
+		State q3 = spec.addState();
+		State q4 = spec.addState();
+ 
+		spec.addTransition(q0, q2, new CharTransitionLabel('a'));
+		spec.addTransition(q0, q2, new CharTransitionLabel('b'));
+		spec.addTransition(q0, q1, new CharTransitionLabel('c'));
+		spec.addTransition(q1, q0, new CharTransitionLabel('c'));
+		spec.addTransition(q1, q3, new CharTransitionLabel('a'));
+		spec.addTransition(q1, q3, new CharTransitionLabel('b'));
+		spec.addTransition(q2, q4, new CharTransitionLabel('a'));
+		spec.addTransition(q2, q4, new CharTransitionLabel('b'));
+		spec.addTransition(q2, q4, new CharTransitionLabel('c'));
+		spec.addTransition(q3, q4, new CharTransitionLabel('a'));
+		spec.addTransition(q3, q4, new CharTransitionLabel('b'));
+		spec.addTransition(q3, q4, new CharTransitionLabel('c'));
+		spec.addTransition(q4, q0, new CharTransitionLabel('c'));
+		spec.addTransition(q4, q2, new CharTransitionLabel('a'));
+		spec.addTransition(q4, q2, new CharTransitionLabel('b'));
+		spec.markAsInitial(q0);
+		spec.markAsFinal(q4);
+ 
+		AutomatonByStack automaton = new AutomatonByStack(spec);
+		assertFalse(automaton.accepts("a"));
+        assertTrue(automaton.accepts("ab"));
+        assertTrue(automaton.accepts("cba"));
+        assertFalse(automaton.accepts("b"));
+		assertFalse(automaton.accepts("a"));
+        assertTrue(automaton.accepts("ab"));
+        assertTrue(automaton.accepts("cba"));
+        assertFalse(automaton.accepts("bca"));
+		assertFalse(automaton.accepts("10"));
+        assertTrue(automaton.accepts("bbb"));
+        assertTrue(automaton.accepts("cba"));
+        assertFalse(automaton.accepts("kghm"));
+		assertFalse(automaton.accepts("&^(*^&"));
+        assertTrue(automaton.accepts("cb"));
+	}
 }
 
