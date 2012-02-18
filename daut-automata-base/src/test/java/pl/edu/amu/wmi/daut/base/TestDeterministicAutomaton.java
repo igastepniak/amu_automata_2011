@@ -225,53 +225,54 @@ public class TestDeterministicAutomaton extends TestCase {
 	* Co przetestowac: metoda accepts klasy DeterministicAutomaton.
 	*/
 	public final void testPrzedostatniaLitera() {
-        AutomatonSpecification spec = NaiveAutomatonSpecification();
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0 = spec.addState();
         State q1 = spec.addState();
         State q2 = spec.addState();
         State q3 = spec.addState();
-        State q4 = spec.addState();
 
-        spec.addTransition(q0, q2, new CharTransitionLabel('a'));
-        spec.addTransition(q0, q2, new CharTransitionLabel('b'));
-        spec.addTransition(q0, q1, new CharTransitionLabel('c'));
-        spec.addTransition(q1, q0, new CharTransitionLabel('c'));
+        spec.addTransition(q0, q1, new CharTransitionLabel('a'));
+        spec.addTransition(q0, q1, new CharTransitionLabel('b'));
+        spec.addTransition(q0, q0, new CharTransitionLabel('c'));
+     
+        
         spec.addTransition(q1, q3, new CharTransitionLabel('a'));
         spec.addTransition(q1, q3, new CharTransitionLabel('b'));
-        spec.addTransition(q2, q4, new CharTransitionLabel('a'));
-        spec.addTransition(q2, q4, new CharTransitionLabel('b'));
-        spec.addTransition(q2, q4, new CharTransitionLabel('c'));
-        spec.addTransition(q3, q4, new CharTransitionLabel('a'));
-        spec.addTransition(q3, q4, new CharTransitionLabel('b'));
-        spec.addTransition(q3, q4, new CharTransitionLabel('c'));
-        spec.addTransition(q4, q0, new CharTransitionLabel('c'));
-        spec.addTransition(q4, q2, new CharTransitionLabel('a'));
-        spec.addTransition(q4, q2, new CharTransitionLabel('b'));
+        spec.addTransition(q1, q2, new CharTransitionLabel('c'));
+        
+        spec.addTransition(q2, q1, new CharTransitionLabel('a'));
+        spec.addTransition(q2, q1, new CharTransitionLabel('b'));
+        spec.addTransition(q2, q0, new CharTransitionLabel('c'));
+        
+        spec.addTransition(q3, q3, new CharTransitionLabel('a'));
+        spec.addTransition(q3, q3, new CharTransitionLabel('b'));
+        spec.addTransition(q3, q0, new CharTransitionLabel('c'));
         spec.markAsInitial(q0);
-        spec.markAsFinal(q4);
+        spec.markAsFinal(q2);
+        spec.markAsFinal(q3);
 
         AutomatonByStack automaton = new AutomatonByStack(spec);
         assertFalse(automaton.accepts("a"));
         assertTrue(automaton.accepts("ab"));
         assertTrue(automaton.accepts("cba"));
         assertFalse(automaton.accepts("b"));
-        assertFalse(automaton.accepts("a"));
-        assertTrue(automaton.accepts("ab"));
-        assertTrue(automaton.accepts("cba"));
+        assertFalse(automaton.accepts("c"));
+        assertFalse(automaton.accepts("acccb"));
+        assertFalse(automaton.accepts("acb"));
         assertFalse(automaton.accepts("bca"));
         assertFalse(automaton.accepts("10"));
         assertTrue(automaton.accepts("bbb"));
-        assertTrue(automaton.accepts("cba"));
         assertFalse(automaton.accepts("kghm"));
         assertFalse(automaton.accepts("&^(*^&"));
-        assertTrue(automaton.accepts("cb"));
+        assertFalse(automaton.accepts("cb"));
         assertTrue(automaton.accepts("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
         assertTrue(automaton.accepts("ababababacbccbbcbcbccbcbababababcbccbcbcbcbcbcbcab"));
         assertFalse(automaton.accepts("pozdro600_________________"));
         assertFalse(automaton.accepts("                                  "));
         assertFalse(automaton.accepts(""));
         assertTrue(automaton.accepts("ccccccccccccccccccccccccccccccac"));
-	}
+    }
+
 }
 
