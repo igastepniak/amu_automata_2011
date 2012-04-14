@@ -3,7 +3,7 @@ package pl.edu.amu.wmi.daut.base;
 import junit.framework.TestCase;
 
 /**
- *
+ * 
  * @author szaku.
  */
 public class TestDeterministicAutomaton extends TestCase {
@@ -105,25 +105,20 @@ public class TestDeterministicAutomaton extends TestCase {
         assertFalse(pct.accepts("vabb"));
         assertFalse(pct.accepts("aabbh"));
     }
+
     /**
      * test metody minimalizujacej automat.
      */
     public final void testMakeMinimal() {
 
-        DeterministicAutomatonSpecification automaton =
-                new NaiveDeterministicAutomatonSpecification();
-        DeterministicAutomatonSpecification automaton2 =
-                new NaiveDeterministicAutomatonSpecification();
-        DeterministicAutomatonSpecification automaton4 =
-                new NaiveDeterministicAutomatonSpecification();
-        DeterministicAutomatonSpecification automaton5 =
-                new NaiveDeterministicAutomatonSpecification();
-        DeterministicAutomatonSpecification automaton7 =
-                new NaiveDeterministicAutomatonSpecification();
-        DeterministicAutomatonSpecification automaton8 =
-                new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton2 = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton4 = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton5 = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton7 = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton8 = new NaiveDeterministicAutomatonSpecification();
 
-        //---------------------------------------------------------
+        // ---------------------------------------------------------
         State state1 = automaton.addState();
         State state2 = automaton.addState();
         State state3 = automaton.addState();
@@ -150,13 +145,11 @@ public class TestDeterministicAutomaton extends TestCase {
         assertTrue(automaton3.accepts("ba"));
         assertFalse(automaton3.accepts("ab"));
 
-
-        //---------------------------------------------------------
+        // ---------------------------------------------------------
         State states1 = automaton4.addState();
         State states2 = automaton4.addState();
         State states3 = automaton4.addState();
         State states4 = automaton4.addState();
-
 
         automaton4.markAsInitial(states1);
         automaton4.markAsFinal(states2);
@@ -175,13 +168,12 @@ public class TestDeterministicAutomaton extends TestCase {
 
         AutomatonByRecursion automaton6 = new AutomatonByRecursion(automaton5);
 
-
         assertTrue(automaton6.accepts("bbbbbbbbbaaaa"));
         assertTrue(automaton6.accepts("aaaaaaaa"));
         assertTrue(automaton6.accepts("bbbaa"));
         assertTrue(automaton6.accepts("babababababaa"));
         assertEquals(automaton5.countStates(), 3);
-        //---------------------------------------------------------
+        // ---------------------------------------------------------
 
         State statez1 = automaton7.addState();
         State statez2 = automaton7.addState();
@@ -202,7 +194,7 @@ public class TestDeterministicAutomaton extends TestCase {
         automaton7.addLoop(statez4, new CharTransitionLabel('a'));
         automaton7.addLoop(statez4, new CharTransitionLabel('b'));
         automaton7.addTransition(statez5, statez2, new CharTransitionLabel('a'));
-        //automaton7.addLoop(statez5, new CharTransitionLabel('b'));
+        // automaton7.addLoop(statez5, new CharTransitionLabel('b'));
         automaton7.addTransition(statez5, statez6, new CharTransitionLabel('b'));
         automaton7.addTransition(statez6, statez2, new CharTransitionLabel('a'));
         automaton7.addLoop(statez6, new CharTransitionLabel('b'));
@@ -211,20 +203,19 @@ public class TestDeterministicAutomaton extends TestCase {
 
         AutomatonByRecursion automaton9 = new AutomatonByRecursion(automaton8);
 
-
-
         assertTrue(automaton9.accepts("aba"));
         assertTrue(automaton9.accepts("aaaaaababbbbbbbabbb"));
         assertTrue(automaton9.accepts("baaba"));
         assertTrue(automaton9.accepts("ababbb"));
         assertEquals(4, automaton8.countStates());
     }
-	
-	/**
-	* Automat: automat deterministyczny akceptujacy wszystkie napisy nad alfabetem {a,b,c}, ktorych przedostatnim znakiem jest 'a' lub 'b'.
-	* Co przetestowac: metoda accepts klasy DeterministicAutomaton.
-	*/
-	public final void testPrzedostatniaLitera() {
+
+    /**
+     * Automat: automat deterministyczny akceptujacy wszystkie napisy nad
+     * alfabetem {a,b,c}, ktorych przedostatnim znakiem jest 'a' lub 'b'. Co
+     * przetestowac: metoda accepts klasy DeterministicAutomaton.
+     */
+    public final void testPrzedostatniaLitera() {
         AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0 = spec.addState();
@@ -235,16 +226,15 @@ public class TestDeterministicAutomaton extends TestCase {
         spec.addTransition(q0, q1, new CharTransitionLabel('a'));
         spec.addTransition(q0, q1, new CharTransitionLabel('b'));
         spec.addTransition(q0, q0, new CharTransitionLabel('c'));
-     
-        
+
         spec.addTransition(q1, q3, new CharTransitionLabel('a'));
         spec.addTransition(q1, q3, new CharTransitionLabel('b'));
         spec.addTransition(q1, q2, new CharTransitionLabel('c'));
-        
+
         spec.addTransition(q2, q1, new CharTransitionLabel('a'));
         spec.addTransition(q2, q1, new CharTransitionLabel('b'));
         spec.addTransition(q2, q0, new CharTransitionLabel('c'));
-        
+
         spec.addTransition(q3, q3, new CharTransitionLabel('a'));
         spec.addTransition(q3, q3, new CharTransitionLabel('b'));
         spec.addTransition(q3, q0, new CharTransitionLabel('c'));
@@ -266,13 +256,13 @@ public class TestDeterministicAutomaton extends TestCase {
         assertFalse(automaton.accepts("kghm"));
         assertFalse(automaton.accepts("&^(*^&"));
         assertFalse(automaton.accepts("cb"));
-        assertTrue(automaton.accepts("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
-        assertTrue(automaton.accepts("ababababacbccbbcbcbccbcbababababcbccbcbcbcbcbcbcab"));
+        assertTrue(automaton.accepts(
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+        assertTrue(automaton.accepts(
+                "ababababacbccbbcbcbccbcbababababcbccbcbcbcbcbcbcab"));
         assertFalse(automaton.accepts("pozdro600_________________"));
         assertFalse(automaton.accepts("                                  "));
         assertFalse(automaton.accepts(""));
         assertTrue(automaton.accepts("ccccccccccccccccccccccccccccccac"));
     }
-
 }
-
