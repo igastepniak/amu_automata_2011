@@ -111,12 +111,18 @@ public class TestDeterministicAutomaton extends TestCase {
      */
     public final void testMakeMinimal() {
 
-        DeterministicAutomatonSpecification automaton = new NaiveDeterministicAutomatonSpecification();
-        DeterministicAutomatonSpecification automaton2 = new NaiveDeterministicAutomatonSpecification();
-        DeterministicAutomatonSpecification automaton4 = new NaiveDeterministicAutomatonSpecification();
-        DeterministicAutomatonSpecification automaton5 = new NaiveDeterministicAutomatonSpecification();
-        DeterministicAutomatonSpecification automaton7 = new NaiveDeterministicAutomatonSpecification();
-        DeterministicAutomatonSpecification automaton8 = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton =
+                new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton2 =
+                new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton4 =
+                new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton5 =
+                new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton7 =
+                new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton8 =
+                new NaiveDeterministicAutomatonSpecification();
 
         // ---------------------------------------------------------
         State state1 = automaton.addState();
