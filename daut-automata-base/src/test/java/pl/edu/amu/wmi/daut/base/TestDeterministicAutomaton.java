@@ -243,7 +243,7 @@ public class TestDeterministicAutomaton extends TestCase {
 
         spec.addTransition(q3, q3, new CharTransitionLabel('a'));
         spec.addTransition(q3, q3, new CharTransitionLabel('b'));
-        spec.addTransition(q3, q0, new CharTransitionLabel('c'));
+        spec.addTransition(q3, q2, new CharTransitionLabel('c'));
         spec.markAsInitial(q0);
         spec.markAsFinal(q2);
         spec.markAsFinal(q3);
@@ -261,14 +261,15 @@ public class TestDeterministicAutomaton extends TestCase {
         assertTrue(automaton.accepts("bbb"));
         assertFalse(automaton.accepts("kghm"));
         assertFalse(automaton.accepts("&^(*^&"));
+        assertTrue(automaton.accepts("abc"));
         assertFalse(automaton.accepts("cb"));
         assertTrue(automaton.accepts(
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaa"));
         assertTrue(automaton.accepts(
-                "ababababacbccbbcbcbccbcbababababcbccbcbcbcbcbcbcab"));
+                "ababababacbccbbcbcbcbcbcbcab"));
         assertFalse(automaton.accepts("pozdro600_________________"));
         assertFalse(automaton.accepts("                                  "));
         assertFalse(automaton.accepts(""));
-        assertTrue(automaton.accepts("ccccccccccccccccccccccccccccccac"));
+        assertTrue(automaton.accepts("ccccccccccccccccccac"));
     }
 }
